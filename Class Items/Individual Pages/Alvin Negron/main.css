@@ -1,0 +1,44 @@
+
+.setbackground {
+background-image: url("img/lakeview.jpg") !important;
+<!--background-color: cyan !important;-->
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+.img1{
+	float:left;
+	margin-right: 10px;
+	height: 50px;
+}
+body {
+  color: #276982 !important;
+}
+
+.text-primary{
+	color: #0974ec!important;
+}
+.list{
+	color:#0974ec !important;
+}
+.social-icons .social-icon:hover {
+  background-color: #0974ec !important;
+}
+footer{
+	font-size: .7rem;
+}
+.table {
+  width: 40% !important;
+  margin-bottom: 1rem;
+  color: #276982;
+  text-align: center;
+  }
+  
+  th{
+	   font-size: 1.5rem;
+  }
+.table-bordered {
+  border: 3px solid #0974ec !important;
+}
