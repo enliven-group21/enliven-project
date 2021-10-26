@@ -16,7 +16,7 @@ function App() {
   return (
 
     <div className="App">
-      <Router basename={process.env.REACT_APP_PUBLIC_URL}>
+      <Router basename={window.location.pathname || ''}>
         <AuthProvider>
           <div className="container">
             <Switch>
