@@ -22,12 +22,12 @@ export default function News() {
             setError('Invalid search term');
         } else {
             setError(null);
-            // News api request
-            fetch(`https://newsapi.org/v2/everything?q=${searchQuery.current.value}&sortBy=relevancy&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
+            fetch(`https://gnews.io/api/v4/search?q=${searchQuery.current.value}&sortBy=relevance&lang=en&token=${process.env.REACT_APP_NEWS_API_KEY}`)
                 .then(res => res.json())
                 .then(
                     (result) => {
                         setIsLoaded(true);
+                        console.log(result.articles);
                         setArticles(result.articles);
                     },
                     (error) => {
@@ -92,13 +92,13 @@ export default function News() {
                                         </List.Description>
                                         <List horizontal>
                                             <List.Item>
-                                                {article.author} | <a className="mt-5" href={article.url} target="o"><strong>{article.source.name}</strong></a>
+                                                <strong>{article.source.name}</strong> | <a className="mt-5" href={article.url} target="o">Read More</a>
                                             </List.Item>
                                             <List.Item>{formatDate(article.publishedAt)}</List.Item>
                                         </List>
                                     </Grid>
                                     <Grid sm={4} sx={12}>
-                                        <Image className="news-image" alt="No image found" src={article.urlToImage} size="small" />
+                                        <Image className="news-image" alt="No image found" src={article.image} size="small" />
                                     </Grid>
                                 </Grid>
                             </List.Item>
