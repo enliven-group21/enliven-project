@@ -27,7 +27,6 @@ export default function News() {
                 .then(
                     (result) => {
                         setIsLoaded(true);
-                        console.log(result.articles);
                         setArticles(result.articles);
                     },
                     (error) => {
