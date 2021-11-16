@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Link } from '@material-ui/core'
 import { Form, Card, Alert } from 'react-bootstrap'
 import { Container } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { doc, setDoc } from '@firebase/firestore'
 import { db } from '../firebase'
 
@@ -66,7 +66,7 @@ export default function Signup() {
                         </Card.Body>
                     </Card>
                     <div className="w-100 text-center mt-2">
-                        <p>Already signed up? <Link to="/login" >Log in.</Link>
+                        <p>Already signed up? <Link href="./login" >Log in.</Link>
                         </p>
                     </div>
                 </div>

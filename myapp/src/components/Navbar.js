@@ -25,16 +25,24 @@ export default function Navbar() {
         <AppBar>
             <Toolbar className="nav-container">
                 <div className={classes.flexGrow}>
+
                     <Button className={classes.button} variant="outlined" style={{ marginRight: 200 }} color="inherit" component={Link} to="/aboutus">
                         About Us
                     </Button>
 
-                    <Button className={classes.button} variant="outlined" style={{ marginRight: 200, marginLeft: 200 }} color="inherit" component={Link} to="/">
+                    <Button className={classes.button} variant="outlined" style={{ marginRight: 200 }} color="inherit" component={Link} to="/">
                         Home
                     </Button>
-                    <Button className={classes.button} variant="outlined" style={{ marginLeft: 200 }} color="inherit" component={Link} to="/profile">
+
+                    <Button className={classes.button} variant="outlined" style={{ marginRight: 200 }} color="inherit" component={Link} to="/news">
+                        News
+                    </Button>
+
+                    <Button className={classes.button} variant="outlined"  color="inherit" component={Link} to="/profile">
                         Profile
                     </Button>
+
+                    
                 </div>
             </Toolbar>
         </AppBar>

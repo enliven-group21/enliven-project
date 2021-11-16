@@ -1,14 +1,22 @@
+// React Stuff
 import React, { useState, useRef, useEffect } from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
-import { TextField, Grid, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { Form } from 'react-bootstrap';
-import UserPosts from '../components/userPosts';
-import Navbar from '../components/Navbar';
+
+// MUI Stuff
+import Button from '@material-ui/core/Button'
+import { TextField, Grid, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+
+// Firebase / Database stuff
 import { doc, setDoc, collection, query, onSnapshot, where } from '@firebase/firestore'
 import { db } from '../firebase'
+import { useAuth } from '../contexts/AuthContext'
+
+// Components
+import UserPosts from '../components/userPosts';
+import UserPhotos from '../components/userPhotos';
+import Navbar from '../components/Navbar';
 
 export default function Profile() {
     const { currentUser, signout, update } = useAuth();
@@ -72,6 +80,13 @@ export default function Profile() {
                         <p><strong>Email:</strong> {currentUser && currentUser.email}</p>
                         <p><strong>Bio:</strong> {currentUser && bio}</p>
                         {error && <Alert variant="danger">{error}</Alert>}
+                        <hr />
+                        <Button className="w-100" variant="contained" color="primary" type="submit" onClick={handleClickOpen}>
+                            Edit Profile
+                        </Button>
+                        <Button className="w-100 mt-4" variant="contained" color="primary" type="submit" onClick={handleLogout} >
+                            Log Out
+                        </Button>
                     </div>
                 </Grid>
                 <Grid item sm={4} xs={12}>
@@ -80,16 +95,9 @@ export default function Profile() {
                     <UserPosts />
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <div>
-                        <h1>Edit Info</h1>
-                        <hr />
-                        <Button className="w-100 mt-4" variant="contained" color="primary" type="submit" onClick={handleClickOpen}>
-                            Edit Profile
-                        </Button>
-                        <Button className="w-100 mt-4" variant="contained" color="primary" type="submit" onClick={handleLogout} >
-                            Log Out
-                        </Button>
-                    </div>
+                    <h1>User Photos</h1>
+                    <hr />
+                    <UserPhotos />
                 </Grid>
             </Grid>
             <Dialog

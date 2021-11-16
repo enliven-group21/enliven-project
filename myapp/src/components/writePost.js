@@ -1,9 +1,9 @@
 // React Stuff
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 // MUI Stuff
-import { Button, TextField, Toolbar } from '@material-ui/core'
-import CustomBtn from './CustomBtns/CustomBtn'
+import { TextareaAutosize, Toolbar } from '@material-ui/core'
+import CustomBtn from './CustomBtn'
 
 // CSS
 import "../App.css"
@@ -14,68 +14,96 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto'
 import AttachmentIcon from '@material-ui/icons/AttachFile'
 
 
-// Database
+// Firebase Stuff
 import { db } from '../firebase'
-import { Timestamp, doc, addDoc, collection } from '@firebase/firestore'
+import { serverTimestamp, addDoc, collection } from '@firebase/firestore'
 import { useAuth } from '../contexts/AuthContext'
+
+import ProgressBar from './progressBar';
 
 const WritePost = () => {
   const [post, setPost] = useState("");
+
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
+
   const { currentUser } = useAuth();
 
-  //const [loader,setLoader] = useState(false);
+  const handleChooseImage = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
+  };
 
-  const handleSubmit = (event) => {
+  // Allowed Types to be uploaded to Storage
+  const types = ['image/png', 'image/jpeg'];
+
+  const handleImageUpload = (event) => {
     event.preventDefault();
-    //setLoader(true);
+    let selected = event.target.files[0];
+
+    if (selected && types.includes(selected.type)) {
+      setFile(selected);
+      setError('');
+    } else {
+      setFile(null);
+      alert('Please select an image file (png or jpg)');
+      setError('Incorrect File Type');
+    }
+  }
+
+  const handleTextUpload = (event) => {
+    event.preventDefault();
 
     addDoc(collection(db, "posts"), {
       content: post,
-      createdAt: Timestamp.fromDate(new Date),
+      createdAt: serverTimestamp(),
       user: currentUser.displayName,
       userEmail: currentUser.email,
     })
       .then(() => {
-        //setLoader(false);
-        //alert("Your post has been posted");
         console.log('Posted');
       })
       .catch((error) => {
         alert(error.post);
         console.error();
-        //setLoader(false);
       })
 
   };
 
-
-
-
   return (
-    <form className="" onSubmit={handleSubmit}>
+    <form className="" onSubmit={handleTextUpload}>
       <h1>Make a New Post</h1>
       <hr />
-      {/* <label> Post </label> */}
-      <TextField
+      <TextareaAutosize
+        className="posting"
+        minRows={3}
+        maxRows={3}
+        style={{ minWidth: 375, minHeight: 75 }}
+        maxLength={250}    // Max character length of Post
         placeholder="Share your thoughts"
         value={post}
-        onChange={(event) => setPost(event.target.value)} />
+        onChange={((event) => setPost(event.target.value))}
+      />
 
-      <Toolbar className="postingBtn-container">
-        <CustomBtn onClick={handleSubmit} tip="Click here to Post">
+      {file && <ProgressBar file={file} setFile={setFile} />}
+
+      <Toolbar>
+        <CustomBtn onClick={handleTextUpload} tip="Click here to Post">
           <AddIcon />
         </CustomBtn>
-        <CustomBtn onClick={handleSubmit} tip="Click here to add a Photo">
+
+        {/* This is the image Upload */}
+        <input type="file" id="imageInput" hidden="hidden" onChange={handleImageUpload} />
+        <CustomBtn onClick={handleChooseImage} tip="Click here to add a Photo">
           <InsertPhotoIcon />
         </CustomBtn>
-        <CustomBtn onClick={handleSubmit} tip="Click here to attach a file">
+        {error && <div className="error"></div>}
+
+        {/* This is the attach Image to post*/}
+        <input type="file" id="imageInput" hidden="hidden" onChange={handleImageUpload} />
+        <CustomBtn onClick={handleChooseImage} tip="Click here to attach a file">
           <AttachmentIcon />
         </CustomBtn>
-
-        {/* Different Button  */}
-        {/* <Button type= "submit" style={{ background: loader ? "#ccc" : "rgb(2,2,110)"}, { marginRight: 100 }}>Post</Button> */}
-        {/* <Button type= "submit" style={{ background: loader ? "#ccc" : "rgb(2,2,110)"}}>Post</Button> */}
-
       </Toolbar>
     </form>
   )

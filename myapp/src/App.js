@@ -11,10 +11,10 @@ import Profile from './pages/profile';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css'
 import AuthProvider from './contexts/AuthContext';
+import News from './pages/news';
 
 function App() {
   return (
-
     <div className="App">
       <Router basename={window.location.pathname || ''}>
         <AuthProvider>
@@ -25,6 +25,7 @@ function App() {
               <Route path="/signup" component={SignUp} />
               <Route path="/aboutus" component={AboutUs} />
               <Route path="/profile" component={Profile} />
+              <Route path="/news" component={News} />
             </Switch>
           </div>
         </AuthProvider>
