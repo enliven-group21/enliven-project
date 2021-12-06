@@ -27,7 +27,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Router>
+        <Router basename={window.location.pathname || ''}>
           <AuthProvider>
             <div className="container">
               <Switch>
