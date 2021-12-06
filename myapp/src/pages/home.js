@@ -4,13 +4,14 @@ import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 
 //Compoenents
-import WritePost from '../components/writePost'
-
 import Navbar from '../components/Navbar'
-import ImageGrid from '../components/ImageGrid'
-import PostGrid from '../components/PostGrid'
 import ImagePop from '../components/imagePop'
+import PostPhotoGrid from '../components/PostPhotoGrid'
+import WritePhotoPost from '../components/WritePhotoPost'
 
+// Styling
+import '../styling/App.css'
+// import { useAuth } from '../contexts/AuthContext'
 
 export default function Home() {
     const [selectedImage, setSelectedImg] = useState(null);
@@ -18,18 +19,12 @@ export default function Home() {
     return (
         <>
             <Navbar />
-            <Grid container spacing={2}>
-                <Grid item sm={4} sx={12}>
-                    <PostGrid />
-                </Grid>
-                <Grid item sm= {4} sx= {12}>
-                    <ImageGrid setSelectedImg={setSelectedImg} />
-                   { selectedImage && <ImagePop selectedImage={selectedImage} setSelectedImg={setSelectedImg}/>}
-                </Grid>
-                <Grid item sm={4} sx={12}>
-                    <WritePost />
-                </Grid>
-            </Grid>
+                    <Grid item sm= {8} sx= {12} className="home-grid" style={{position: 'relative', margin: 'auto'}}>
+                        <WritePhotoPost />
+                        <PostPhotoGrid setSelectedImg={setSelectedImg} />
+                        { selectedImage && <ImagePop selectedImage={selectedImage} setSelectedImg={setSelectedImg}/>}
+
+                    </Grid>
         </>
     )
 }

@@ -3,15 +3,17 @@ import React, { useState, useRef } from 'react'
 // Components
 import Navbar from '../components/Navbar'
 import { Alert } from 'react-bootstrap';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, CircularProgress } from '@material-ui/core';
 import { List, Header, Image } from "semantic-ui-react";
+import { logEvent } from '@firebase/analytics';
+import { analytics } from '../firebase';
 
 // Style
-import '../App.css';
+import '../styling/App.css';
 
 export default function News() {
     const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [articles, setArticles] = useState([]);
     const searchQuery = useRef();
 
@@ -21,16 +23,22 @@ export default function News() {
         if (searchQuery.current.value === '' || searchQuery.current.value == null || !searchQuery.current.value.trim().length) {
             setError('Invalid search term');
         } else {
+            setIsLoading(true);
+            console.log(searchQuery.current.value);
             setError(null);
-            fetch(`https://gnews.io/api/v4/search?q=${searchQuery.current.value}&sortBy=relevance&lang=en&token=${process.env.REACT_APP_NEWS_API_KEY}`)
+            logEvent(analytics, "search");
+            fetch(`https://gnews.io/api/v4/search?q=${searchQuery.current.value}&sortBy=relevance&lang=en&token=7f0818593503dce6507a7bb4a99bb2c4`)
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        setIsLoaded(true);
+                        setIsLoading(false);
                         setArticles(result.articles);
+                        if (result.totalArticles == 0) {
+                            setError('No results matched your search term');
+                        }
                     },
                     (error) => {
-                        setIsLoaded(true);
+                        setIsLoading(false);
                         setError(error);
                     }
                 )
@@ -56,9 +64,15 @@ export default function News() {
                         <Button className="btn" variant="contained" color="primary" type="submit" onClick={handleSearch} >Search</Button>
                     </div>
                 </div>
-                <Alert className="m-auto mt-3 w-50 d-flex align-items-center justify-content-center" variant="danger">
-                    {error}
-                </Alert>
+                {error === 'No results matched your search term' ?
+                    <Alert className="m-auto mt-3 w-50 d-flex align-items-center justify-content-center" variant="warning">
+                        {error}
+                    </Alert> :
+                    <Alert className="m-auto mt-3 w-50 d-flex align-items-center justify-content-center" variant="danger">
+                        {error}
+                    </Alert>
+                }
+
             </>
         );
     }
@@ -73,6 +87,9 @@ export default function News() {
                     <div class="input-group-append">
                         <Button variant="contained" color="primary" type="submit" onClick={handleSearch} >Search</Button>
                     </div>
+                </div>
+                <div style={{ display: 'flex', marginTop: 25, marginBottom: 25, justifyContent: 'center', alignItems: 'center' }}>
+                    {isLoading ? <CircularProgress style={{ color: 'blue' }} /> : null}
                 </div>
                 <List divided style={{ maxWidth: 900, margin: "0 auto" }}>
                     {articles.map((article, index) => (

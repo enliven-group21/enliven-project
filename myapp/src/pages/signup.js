@@ -5,7 +5,8 @@ import { Container } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import { useHistory, Link } from 'react-router-dom'
 import { doc, setDoc } from '@firebase/firestore'
-import { db } from '../firebase'
+import { db, analytics } from '../firebase'
+import { logEvent } from '@firebase/analytics'
 
 export default function Signup() {
     const firstNameRef = useRef();
@@ -13,9 +14,10 @@ export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, update } = useAuth()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    const { signup, update } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
     const history = useHistory();
 
     async function handleSubmit(e) {
@@ -29,21 +31,23 @@ export default function Signup() {
         try {
             setError('')
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value); // Sign up with auth
+            await signup(emailRef.current.value, passwordRef.current.value);
+            logEvent(analytics, "sign_up");
+            // Sign up with auth
             setDoc(doc(db, 'users', emailRef.current.value), { // Add to user database, email as document id
                 displayName: `${firstNameRef.current.value} ${lastNameRef.current.value}`,
                 email: emailRef.current.value,
-                photoURL: "null",
+                photoURL: "",
                 bio: "",
-            })
+            });
             const name = `${firstNameRef.current.value} ${lastNameRef.current.value}`
-            await update(name, emailRef.current.value, "null", "")
-            //console.log('User Signed Up');
-            setLoading(false)
+            await update(name, emailRef.current.value, "", "");
+            setLoading(false);
             history.push('/');
         } catch (error) {
             console.log(error);
-            setError('Failed to create an account: ' + error)
+            setLoading(false);
+            setError('Failed to create an account: ' + error);
         }
     }
 
