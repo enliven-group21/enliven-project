@@ -190,7 +190,7 @@ export default function Navbar() {
         Profile
       </MenuItem>
 
-      <MenuItem onClick={handleFriendsRoute} disabled>
+      {/* <MenuItem onClick={handleFriendsRoute} disabled>
         <IconButton
           size="large"
           aria-haspopup="true"
@@ -199,7 +199,7 @@ export default function Navbar() {
           <PeopleIcon />
         </IconButton>
         Friends
-      </MenuItem>
+      </MenuItem> */}
 
       <MenuItem onClick={handleHomeRoute}>
         <IconButton
@@ -264,12 +264,15 @@ export default function Navbar() {
             </Typography> */}
 
           {/* The search box inside of the NavBar for finding friends (WIP)*/}
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search Friends (WIP)…" inputProps={{ 'aria-label': 'search' }} disabled />
-          </Search>
+          </Search> */}
+
+          {/* Empty Box to compensate for searchbar being removed */}
+          <Box sx={{flexGrow: .35}} />
 
 
           {/* Top Page Buttons */}
@@ -299,7 +302,7 @@ export default function Navbar() {
             </Tooltip>
 
             {/* Friends Button (WIP) */}
-            <Tooltip title="WIP">
+            {/* <Tooltip title="WIP">
               <Button size="large"
                 edge="start"
                 color="inherit"
@@ -309,7 +312,7 @@ export default function Navbar() {
                 disabled>
                 <PeopleIcon />
               </Button>
-            </Tooltip>
+            </Tooltip> */}
 
             {/* About Us Button */}
             <Tooltip title="About Us">

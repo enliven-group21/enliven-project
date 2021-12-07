@@ -41,6 +41,7 @@ const UserPostPhotoGrid = ({ selectedImg, setSelectedImg }) => {
             <div className="post-grid">
                 {docs && docs.map((doc) => (
                     <>
+                    {console.log(doc.imageUrl)}
                         {/* This is if there is text only */}
                         {doc.content && (doc.imageUrl === null) &&
                             <div className="post-wrap-text-only" key={doc.id}>
@@ -56,7 +57,7 @@ const UserPostPhotoGrid = ({ selectedImg, setSelectedImg }) => {
                                         TransitionProps={{ timeout: 400 }}
                                         title='Click here to delete the post'
                                         arrow >
-                                        <IconButton color="primary" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
+                                        <IconButton color="secondary" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
                                             <DeleteIcon />
                                         </IconButton>
                                     </Tooltip>
@@ -65,14 +66,14 @@ const UserPostPhotoGrid = ({ selectedImg, setSelectedImg }) => {
 
                         {/* This is if there is image only */}
                         {(doc.content === '') && (doc.imageUrl) && <div className="post-wrap-img-only" key={doc.id}>
-                            <img src={doc.imageUrl} alt="Loading..." onClick={() => setSelectedImg(doc.imageUrl)} />
+                                                                    <img src={doc.imageUrl} alt="Loading..." onClick={() => setSelectedImg(doc.imageUrl)} />
 
                             <div className="dlt-post-btn-img-only">
                                 <Tooltip TransitionComponent={Fade}
                                     TransitionProps={{ timeout: 400 }}
                                     title='Click here to delete the post'
                                     arrow >
-                                    <IconButton color="primary" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
+                                    <IconButton color="secondary" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
                                         <DeleteIcon />
                                     </IconButton>
                                 </Tooltip>
@@ -94,7 +95,7 @@ const UserPostPhotoGrid = ({ selectedImg, setSelectedImg }) => {
                                     TransitionProps={{ timeout: 400 }}
                                     title='Click here to delete the post'
                                     arrow >
-                                    <IconButton color="#00000" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
+                                    <IconButton color="secondary" onClick={(event) => { setDeleteDocId(doc.id); handleDelete(event) }} >
                                         <DeleteIcon />
                                     </IconButton>
                                 </Tooltip>

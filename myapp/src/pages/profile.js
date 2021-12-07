@@ -21,7 +21,7 @@ import UserPhotoPostGrid from '../components/UserPhotoPostGrid';
 import Navbar from '../components/Navbar';
 import ImagePop from '../components/imagePop';
 
-import '../App.css'
+import '../styling/App.css'
 
 export default function Profile() {
     const [selectedImage, setSelectedImg] = useState(null);

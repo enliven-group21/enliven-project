@@ -14,10 +14,9 @@ html, body {
 /*  Post textarea */
 textarea {
     position: sticky;
-    margin-top: 3%;
-    padding: 20px 20px 20px 20px;
-    resize: none;
-
+    padding: 20px;
+    /* margin-bottom: 20px; */
+    margin-top: 2%;
     font-size: 16px;
     color: rgb(0, 0, 32);
 
@@ -26,6 +25,7 @@ textarea {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
 
     min-width: 78%;
+    resize: none;
 }
 
 
@@ -49,6 +49,7 @@ textarea {
 }
 
 .button-row {
+    margin-top: -3%;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -56,12 +57,12 @@ textarea {
 }
 
 .upload-post-div img {
-    max-width: 7%;
+    max-width: 10%;
     /* The user profile image width is 8% the size of the div */
     margin-top: -7%;
     /* The left hand margin for the user profile image is 6% the div */
     margin-right: 3.5%;
-    margin-left: 5%;
+    margin-left: 4%;
 }
 
 .home-grid {
@@ -72,19 +73,38 @@ textarea {
 }
 
 /* Image Preview */
-.img-background {
-    background-color: rgb(235, 235, 235);
-    box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.3);
-    height: 50px;
-    width: 380px;
-    border-radius: 5px;
+.img-upload-preview {
+    margin-left: 107%;
+    margin-top: -33%;
+    /* padding-top: 10%; */
+    overflow: hidden;
+    height: 0;
+    /*  height is 0  */
+    width: 50%;
+    padding: 18% 0%;
+    /*  The padding is 10% up and down and 0 left and right  */
+    /*  Padding controls height, will always be perfectly square 
+                            regardless of width of the page if there is no height*/
+    position: absolute;
+    border: 1px solid blue;
+
+    /*  becauase the postion inside (.img-wrap img) is absolute  */
 }
 
-.img-upload-preview {
-    max-width: 100%;
+.img-upload-preview img{
+    min-width: 90%;
+    /*  Taking the full width of the square avalible  */
+    min-height: 0%;
+    /*  Taking the full width of the square avalible  */
+    max-width: 0%;
+    top: 0;
+    left: 0;
+
+    position: absolute;
     border: 1px solid lightgray;
-    border-radius: 5px;
-    box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.3);
+    border-radius: 1vw;
+    box-shadow: 5px 2px 10px rgba(0, 0, 0, .5);
+    text-align: center;
 }
 
 /*  ImagePop  */
@@ -124,4 +144,33 @@ textarea {
     width: 400px;
     height: 300px;
     object-fit: cover;
+}
+
+/* Profile Pic on profile page */
+.profile-container {
+    display: inline-block;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    border: 1px solid black;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-image {
+    /* display: flex;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    object-fit: contain; */
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+    top: 0;
+    left: 0;
 }

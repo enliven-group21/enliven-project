@@ -10,6 +10,7 @@ import { analytics } from '../firebase';
 
 // Style
 import '../styling/App.css';
+import '../theme'
 
 export default function News() {
     const [error, setError] = useState(null);
@@ -61,7 +62,7 @@ export default function News() {
                 <div class="input-group">
                     <input type="text" ref={searchQuery} class="form-control" placeholder="Search for news related to any topic" />
                     <div class="input-group-append">
-                        <Button className="btn" variant="contained" color="primary" type="submit" onClick={handleSearch} >Search</Button>
+                        <Button variant="contained" color="secondary" type="submit" onClick={handleSearch} >Search</Button>
                     </div>
                 </div>
                 {error === 'No results matched your search term' ?
@@ -85,7 +86,7 @@ export default function News() {
                 <div class="input-group">
                     <input type="text" ref={searchQuery} class="form-control" placeholder="Search for news related to any topic" />
                     <div class="input-group-append">
-                        <Button variant="contained" color="primary" type="submit" onClick={handleSearch} >Search</Button>
+                        <Button variant="contained" color="secondary" type="submit" onClick={handleSearch} >Search</Button>
                     </div>
                 </div>
                 <div style={{ display: 'flex', marginTop: 25, marginBottom: 25, justifyContent: 'center', alignItems: 'center' }}>

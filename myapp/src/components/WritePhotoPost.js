@@ -7,7 +7,6 @@ import { Tooltip, TextareaAutosize, Toolbar, Fade, Button } from '@material-ui/c
 // CSS
 import "../styling/App.css"
 import '../styling/buttons.css'
-import "../styling/header.css"
 
 //Icons
 import AddIcon from '@material-ui/icons/Add'
@@ -143,8 +142,8 @@ const WritePostPhoto = () => {
   return (
     <form className="">
 
-      <div className="site__main">
-        <h1 style={{ color: 'black' }}>
+      <div>
+        <h1 style={{ textAlign: 'center', color: 'black', marginTop: '2%', fontFamily: 'Georgia'}}>
           Enliven Your Day
         </h1>
       </div>
@@ -171,7 +170,7 @@ const WritePostPhoto = () => {
               TransitionProps={{ timeout: 400 }}
               title="Click here to choose a photo"
               arrow >
-              <Button style={{ marginRight: '55%' }} disableElevation color="secondary" variant="contained" startIcon={<AddIcon />} onClick={handleUpload}> Post </Button>
+              <Button style={{ marginLeft: '25%', marginRight: '10%' }} disableElevation color="secondary" variant="contained" startIcon={<AddIcon />} onClick={handleUpload}> Post </Button>
             </Tooltip>
 
             {/* This is the file attachment button */}
@@ -196,9 +195,8 @@ const WritePostPhoto = () => {
       {/* When there is a file selected the photo preview apears */}
       {
         selectedFile &&
-        <div className="img-preview-card">
-          <div className="img-background" />
-          <img className="img-upload-preview" src={URL.createObjectURL(selectedFile)} alt="selected img preview" />
+        <div className="img-upload-preview">
+          <img src={URL.createObjectURL(selectedFile)} alt="selected img preview" />
         </div>
       }
 
